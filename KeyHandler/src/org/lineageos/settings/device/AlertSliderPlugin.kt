@@ -18,9 +18,11 @@ import android.os.Looper
 import android.os.Message
 import android.os.UserHandle
 import android.view.View
+import android.util.Log
 import com.android.systemui.plugins.OverlayPlugin
 import com.android.systemui.plugins.annotations.Requires
 import org.lineageos.settings.device.KeyHandler 
+import org.lineageos.settings.device.KeyHandlerApplication
 
 @Requires(target = OverlayPlugin::class, version = OverlayPlugin.VERSION)
 class AlertSliderPlugin : OverlayPlugin {
@@ -62,7 +64,9 @@ class AlertSliderPlugin : OverlayPlugin {
 
     override fun onCreate(context: Context, plugin: Context) {
         pluginContext = plugin
-        handler = NotificationHandler(plugin)
+        val packageContext = context.createPackageContext(
+            AlertSliderPlugin::class.java.getPackage()!!.name, 0)
+        handler = NotificationHandler(packageContext)
         ambientConfig = AmbientDisplayConfiguration(context)
 
         plugin.registerReceiver(updateReceiver, IntentFilter(KeyHandler.SLIDER_UPDATE_ACTION), Context.RECEIVER_EXPORTED)
@@ -77,7 +81,7 @@ class AlertSliderPlugin : OverlayPlugin {
 
     private inner class NotificationHandler(private val context: Context) : Handler(Looper.getMainLooper()) {
         private var dialog = AlertSliderDialog(context)
-        private var currUIMode = context.getResources().getConfiguration().uiMode
+        private var currColor = context.resources.getColor(R.color.alert_check_color, context.theme)
         private var currRotation = context.getDisplay().getRotation()
         private var showing = false
             set(value) {
@@ -144,13 +148,17 @@ class AlertSliderPlugin : OverlayPlugin {
 
         private fun handleRecreate() {
             // Remake if theme changed or rotation
-            val uiMode = context.getResources().getConfiguration().uiMode
+            val packageContext = context.createPackageContext(
+                AlertSliderPlugin::class.java.getPackage()!!.name, 0)
+
+            val color = packageContext.resources.getColor(R.color.alert_check_color, context.theme)
             val rotation = context.getDisplay().getRotation()
-            if (uiMode != currUIMode || rotation != currRotation) {
+            if (color != currColor || rotation != currRotation) {
+                Log.d(TAG, "Recreate called")
                 showing = false
-                dialog = AlertSliderDialog(context)
-                currUIMode = uiMode
+                dialog = AlertSliderDialog(packageContext)
                 currRotation = rotation
+                currColor = color
             }
         }
     }

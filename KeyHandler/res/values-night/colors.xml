@@ -10,7 +10,9 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<resources>
+<resources xmlns:androidprv="http://schemas.android.com/apk/prv/res/android">
     <color name="slider_track_color">#FFB0B0B0</color> <!-- Light gray color for dark mode -->
     <color name="slider_thumb_color">#FFB0B0B0</color> <!-- Black color for the thumb in dark mode -->
+    <color name="alert_slider_notification_background">?androidprv:attr/colorSurface</color>
+    <color name="alert_check_color">@android:color/system_accent1_500</color> <!-- White color for the thumb -->
 </resources>
