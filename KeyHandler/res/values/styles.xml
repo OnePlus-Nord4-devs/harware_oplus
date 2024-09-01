@@ -11,7 +11,7 @@
     limitations under the License.
 -->
 <resources>
-    <style name="alert_slider_theme" parent="@android:style/Theme.DeviceDefault.Dialog.Alert">
+    <style name="alert_slider_theme" parent="Theme.Material3.Light">
         <item name="android:windowIsFloating">true</item>
     </style>
 </resources>

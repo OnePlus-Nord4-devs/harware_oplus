@@ -11,9 +11,9 @@
     limitations under the License.
 -->
 <resources xmlns:androidprv="http://schemas.android.com/apk/prv/res/android">
-    <color name="slider_track_color">#FF757575</color> <!-- Gray color for the track -->
-    <color name="slider_thumb_color">#FF757575</color> <!-- White color for the thumb -->
+    <color name="slider_track_color">@android:color/system_on_surface_light</color> <!-- Gray color for the track -->
+    <color name="slider_thumb_color">@android:color/system_on_surface_light</color> <!-- White color for the thumb -->
     <color name="alert_check_color">@android:color/system_accent1_400</color> <!-- White color for the thumb -->
-    <color name="alert_slider_notification_background">?androidprv:attr/colorSurface</color>
-    <color name="alert_slider_icon_color">#FFFFFFFF</color>
+    <color name="alert_slider_notification_background">@android:color/system_surface_container_light</color>
+    <color name="alert_slider_icon_color">@android:color/system_on_surface_light</color>
 </resources>

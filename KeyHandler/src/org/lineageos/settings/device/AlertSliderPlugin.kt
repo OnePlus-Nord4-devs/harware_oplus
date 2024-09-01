@@ -55,7 +55,10 @@ class AlertSliderPlugin : OverlayPlugin {
                         }
                     }
                     Intent.ACTION_CONFIGURATION_CHANGED -> {
-                        synchronized(dialogLock) { handler.sendEmptyMessage(MSG_DIALOG_RECREATE) }
+                        synchronized(dialogLock) {
+                            pluginContext = context
+                            handler.sendEmptyMessage(MSG_DIALOG_RECREATE)
+                        }
                     }
                 }
             }
@@ -164,6 +167,7 @@ class AlertSliderPlugin : OverlayPlugin {
             val rotation = context.getDisplay().getRotation()
             if (color != currColor || rotation != currRotation) {
                 Log.d(TAG, "Recreate called")
+                Log.d(TAG, color.toString())
                 showing = false
                 dialog = AlertSliderDialog(packageContext)
                 currRotation = rotation

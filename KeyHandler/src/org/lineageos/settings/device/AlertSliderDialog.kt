@@ -25,7 +25,6 @@ import android.view.WindowManager
 import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 
 /** View with some logging to show that its being run. */
 class AlertSliderDialog(private var context: Context) :
@@ -33,7 +32,6 @@ class AlertSliderDialog(private var context: Context) :
     private val dialogView by lazy { findViewById<LinearLayout>(R.id.alert_slider_dialog) }
     private val frameView by lazy { findViewById<ViewGroup>(R.id.alert_slider_view) }
     private val iconView by lazy { findViewById<ImageView>(R.id.alert_slider_icon) }
-    private val textView by lazy { findViewById<TextView>(R.id.alert_slider_text) }
 
     private val rotation: Int = context.getDisplay().getRotation()
     private val isLand: Boolean = rotation != Surface.ROTATION_0
@@ -183,9 +181,6 @@ class AlertSliderDialog(private var context: Context) :
     private fun applyOnStart(ringerMode: Int) {
         sIconResMap.get(ringerMode)?.let { iconView!!.setImageResource(it) }
             ?: run { iconView!!.setImageResource(R.drawable.ic_info) }
-
-        sTextResMap.get(ringerMode)?.let { textView!!.setText(it) }
-            ?: run { textView!!.setText(R.string.alert_slider_mode_none) }
     }
 
     private fun applyOnEnd(endX: Int, endY: Int, position: Int) {
