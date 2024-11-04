@@ -1,7 +1,4 @@
 
-# Fingerprint
-vendor_internal_prop(system_fingerprint_prop)
-
 # Touch
 system_public_prop(system_oplus_touch_prop)
 
